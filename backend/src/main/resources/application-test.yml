@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: r2dbc-postgres
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+    pool:
+      initial-size: 10
+      max-size: 20
+  sql:
+    init:
+      platform: postgres
+      mode: always
+#  liquibase:
+#    enabled: false
