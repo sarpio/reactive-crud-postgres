@@ -1,0 +1,13 @@
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  height: calc(100vh - 124px);
+}
+
+

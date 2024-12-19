@@ -1,0 +1,32 @@
+@use '@angular/material' as mat;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+mat-table {
+  margin-bottom: 16px;
+}
+
+.mat-column-id {
+  justify-content: right;
+  flex: 0 0 100px;
+}
+
+.mat-column-firstName, .mat-column-lastName, .mat-column-job {
+  flex: 0 0 120px;
+}
+
+.mat-column-email {
+  justify-content: right;
+  flex: 0 0 250px;
+}
+
+.mat-column-phone {
+  justify-content: right;
+  flex: 0 0 150px;
+}
+
+

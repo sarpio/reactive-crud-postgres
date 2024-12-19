@@ -29,8 +29,6 @@ public class PersonService {
     private final PersonRepository personRepository;
 
     public Flux<PersonDTO> getAllPersons(int page, int size, String sortBy, String ascending) {
-        page = page - 1;
-        if (page < 0) page = 0;
 
         boolean order = "asc".equalsIgnoreCase(ascending);
 
@@ -86,7 +84,7 @@ public class PersonService {
                         person.getEmail(),
                         person.getJob(),
                         person.getPhone()
-                        )
+                )
                 .flatMap(
                         rowsUpdated -> personRepository.findPersonById(person.getId())).map(PersonMapper::toDTO);
     }
@@ -95,7 +93,7 @@ public class PersonService {
     public Mono<String> deletePerson(Long id) {
         return personRepository.findById(id)
                 .switchIfEmpty(Mono.error(new PersonNotFoundException("Person with ID: " + id + " not found")))
-                .flatMap(person -> personRepository.deleteById(id)).then(Mono.just("Person with id: " + id + " has been deleted"));
+                .flatMap(person -> personRepository.deleteById(id)).then(Mono.just("\"{ message: Person with ID: " + id + " deleted }\""));
     }
 
     public void createPersons(List<PersonDTO> dtos) {

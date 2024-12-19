@@ -1,4 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  box-sizing: border-box
+}
+
+button {
+  margin: 5px 5px;
+  width: 80px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+.active {
+  color: #fb9003 !important;
+}
+
+
+

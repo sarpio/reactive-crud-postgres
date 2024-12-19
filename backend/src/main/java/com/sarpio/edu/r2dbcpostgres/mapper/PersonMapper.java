@@ -5,6 +5,7 @@ import com.sarpio.edu.r2dbcpostgres.model.PersonDTO;
 
 public class PersonMapper {
 
+
     public static PersonDTO toDTO(Person person) {
         PersonDTO dto = new PersonDTO();
         dto.setId(person.getId());

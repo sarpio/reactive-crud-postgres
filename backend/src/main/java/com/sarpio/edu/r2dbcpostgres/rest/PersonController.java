@@ -41,7 +41,7 @@ public class PersonController {
     @GetMapping
     public Flux<PersonDTO> getAllPersons(
 
-            @RequestParam(defaultValue = "1") @Parameter(description = "Number of selected page starts from 1") int page,
+            @RequestParam(defaultValue = "0") @Parameter(description = "Number of selected page starts from 1") int page,
             @RequestParam(defaultValue = "10") @Parameter(description = "Number of records on single page") int size,
             @RequestParam(defaultValue = "id") @Parameter(description = "Sorting by Column") String sortBy,
             @RequestParam(defaultValue = "asc") @Parameter(description = "Sorting order ASC or DESC") String ascending,
@@ -135,7 +135,9 @@ public class PersonController {
             person.setLastName(faker.name().lastName());
             person.setEmail(faker.internet().emailAddress());
             person.setJob(faker.job().position());
-            person.setPhone(faker.phoneNumber().cellPhone());
+            String s = faker.phoneNumber().subscriberNumber(10);
+            String pureNumber = s.replaceAll("\\D", "");
+            person.setPhone(pureNumber);
             dtos.add(person);
             if (i % 100000 == 0 && i != 0)
                 log.info("Generated {} persons", i);
