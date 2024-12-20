@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment as env } from '../../environments/environment';
 import { UserResponse } from '../model/UserResponse';
 import { User } from '../model/User';
+import { Message } from '../model/Message';
 
 @Injectable({
   providedIn: 'root'
@@ -51,5 +52,9 @@ export class UserService {
 
   deleteUser(id: number): Observable<string> {
     return this.http.delete<string>(env.apiURL + `/${id}`);
+  }
+
+  loadData(value: number): Observable<Message> {
+    return this.http.get<Message>(env.apiURL + `/load/${value}`);
   }
 }

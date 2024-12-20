@@ -1,6 +1,7 @@
 package com.sarpio.edu.r2dbcpostgres.rest;
 
 import com.github.javafaker.Faker;
+import com.sarpio.edu.r2dbcpostgres.model.Message;
 import com.sarpio.edu.r2dbcpostgres.model.PersonDTO;
 import com.sarpio.edu.r2dbcpostgres.service.PersonService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -75,7 +76,7 @@ public class PersonController {
             @NotBlank(message = "Email address is blank")
             @NotEmpty(message = "Email address is empty")
             String email) {
-        return ResponseEntity.status(HttpStatus.FOUND).body(personService.getPersonByEmail(email));
+        return ResponseEntity.status(HttpStatus.OK).body(personService.getPersonByEmail(email));
     }
 
     @Operation(
@@ -125,7 +126,7 @@ public class PersonController {
             description = "`Initialize` default data in DB with given number of rows"
     )
     @GetMapping("/load/{rows}")
-    public String loadDataIntoDatabase(@PathVariable int rows) {
+    public Message loadDataIntoDatabase(@PathVariable int rows) {
         if (rows <= 0) rows = 100;
         Faker faker = new Faker();
         List<PersonDTO> dtos = new ArrayList<>();
@@ -146,7 +147,8 @@ public class PersonController {
         personService.createPersons(dtos);
         long end = System.currentTimeMillis();
         log.info("Executed in {}ms", end - start);
-        return "Executed in " + (end - start) + "ms";
+        String response = "Executed in " + (end - start) + "ms";
+        return new Message(response);
     }
 
     @Operation(

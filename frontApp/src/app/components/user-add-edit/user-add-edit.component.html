@@ -9,33 +9,64 @@
         <mat-label>First Name</mat-label>
         <mat-icon matSuffix>person</mat-icon>
         <input matInput formControlName="firstName">
+        @if (form.get('firstName')?.hasError('required')) {
+          <mat-error>First name must be provided</mat-error>
+        }
+        @if (form.get('firstName')?.hasError('minlength')) {
+          <mat-error>Minimum length should be 3 characters
+          </mat-error>
+        }
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>Last Name</mat-label>
         <mat-icon matSuffix>person</mat-icon>
         <input matInput formControlName="lastName">
+        @if (form.get('lastName')?.hasError('required')) {
+          <mat-error>Last name must be provided</mat-error>
+        }
+        @if (form.get('lastName')?.hasError('minlength')) {
+          <mat-error>Minimum length should be 3 characters</mat-error>
+        }
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>Email</mat-label>
         <mat-icon matSuffix>email</mat-icon>
-        <input matInput formControlName="email">
+        <input matInput formControlName="email" (click)="printFormDetails()">
+        @if (form.get('email')?.hasError('required')) {
+          <mat-error>Email must be provided</mat-error>
+        }
+        @if (form.get('email')?.hasError('email')) {
+          <mat-error>Email must have correct format</mat-error>
+        }
       </mat-form-field>
 
       <mat-form-field>
         <mat-icon matSuffix>work</mat-icon>
         <mat-label>Job</mat-label>
         <input matInput formControlName="job">
+        @if (form.get('job')?.hasError('required')) {
+          <mat-error>Job title must be provided</mat-error>
+        }
+        @if (form.get('job')?.hasError('minlength')) {
+          <mat-error>Minimum length should be 3 characters</mat-error>
+        }
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>Phone</mat-label>
         <mat-icon matSuffix>phone</mat-icon>
         <input matInput formControlName="phone" mask="(000) 000-0000">
+        @if (form.get('phone')?.hasError('required')) {
+          <mat-error>Phone number must be provided</mat-error>
+        }
+        @if (form.get('phone')?.hasError('minlength')) {
+          <mat-error>Minimum length should be 10 digits</mat-error>
+        }
       </mat-form-field>
       <div class="buttons-group">
-        <button mat-raised-button color="primary" type="submit">Save</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Save</button>
         <button mat-raised-button color="accent" type="button" (click)="closePopup()">Cancel</button>
       </div>
 

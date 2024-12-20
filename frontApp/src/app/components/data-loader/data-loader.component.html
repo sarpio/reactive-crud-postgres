@@ -1,0 +1,16 @@
+<div class="container">
+  <mat-card appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>Load default data</mat-card-title>
+      <mat-card-subtitle>Provide number of records you want to be generated</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field appearance="outline">
+        <mat-label>Records</mat-label>
+        <input matInput placeholder="Records quantity" [(ngModel)]="value" (input)="onInputChange($event)">
+      </mat-form-field>
+      <button mat-raised-button (click)="send()" color="primary">Send</button>
+    </mat-card-content>
+    <!--    <p>{{ message?.message }}</p>-->
+  </mat-card>
+</div>

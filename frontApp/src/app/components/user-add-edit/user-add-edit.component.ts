@@ -1,19 +1,27 @@
-import { Component, inject, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { UserService } from '../../service/user.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
 import { NgxMaskDirective } from 'ngx-mask';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { User } from '../../model/User';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-user-add-edit',
   imports: [MatFormFieldModule, MatInputModule, MatCardModule, MatButtonModule,
-    MatIconModule, FormsModule, NgxMaskDirective, ReactiveFormsModule
+    MatIconModule, FormsModule, NgxMaskDirective, ReactiveFormsModule, NgIf
   ],
   templateUrl: './user-add-edit.component.html',
   styleUrl: './user-add-edit.component.scss'
@@ -52,11 +60,11 @@ export class UserAddEditComponent implements OnInit {
     }
     this.form = this.formBuilder.group({
       id: new FormControl(),
-      firstName: new FormControl('', [Validators.required]),
-      lastName: new FormControl('', [Validators.required]),
+      firstName: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      lastName: new FormControl('', [Validators.required, Validators.minLength(3)]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      job: new FormControl('', [Validators.required]),
-      phone: new FormControl('', [Validators.required]),
+      job: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      phone: new FormControl('', [Validators.required, Validators.minLength(10)]),
     });
   }
 
@@ -96,4 +104,7 @@ export class UserAddEditComponent implements OnInit {
     this.ref.close();
   }
 
+  printFormDetails() {
+    console.log(this.form);
+  }
 }
