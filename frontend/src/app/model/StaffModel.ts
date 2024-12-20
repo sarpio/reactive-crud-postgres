@@ -1,8 +1,0 @@
-export interface Person {
-  id: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  job: string;
-  phone: string;
-}
