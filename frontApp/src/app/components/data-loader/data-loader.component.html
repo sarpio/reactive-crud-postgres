@@ -7,7 +7,7 @@
     <mat-card-content>
       <mat-form-field appearance="outline">
         <mat-label>Records</mat-label>
-        <input matInput placeholder="Records quantity" [(ngModel)]="value" (input)="onInputChange($event)">
+        <input matInput placeholder="Records quantity" [(ngModel)]="value">
       </mat-form-field>
       <button mat-raised-button (click)="send(value)" color="primary">Send</button>
     </mat-card-content>

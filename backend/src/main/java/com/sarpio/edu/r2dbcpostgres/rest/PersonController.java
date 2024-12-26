@@ -144,11 +144,10 @@ public class PersonController {
                 log.info("Generated {} persons", i);
         }
         long start = System.currentTimeMillis();
-        personService.createPersons(dtos);
+        Message message = personService.createPersons(dtos);
         long end = System.currentTimeMillis();
         log.info("Executed in {}ms", end - start);
-        String response = "Executed in " + (end - start) + "ms";
-        return new Message(response);
+        return message;
     }
 
     @Operation(

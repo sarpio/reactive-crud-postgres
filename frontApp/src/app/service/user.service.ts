@@ -55,6 +55,6 @@ export class UserService {
   }
 
   loadData(value: number): Observable<Message> {
-    return this.http.get<Message>(env.apiURL + `/load/${value}`);
+    return this.http.get<Message>(env.apiURL + `/load/${value}`)
   }
 }

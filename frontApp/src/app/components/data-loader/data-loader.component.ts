@@ -22,25 +22,13 @@ export class DataLoaderComponent {
   value = '';
   message!: Message;
 
-  onInputChange(event: any): void {
-    // const inputValue = event.target.value;
-    // if (inputValue.length > 3) {
-    //   this.value = inputValue.slice(0, 3);
-    //   console.log(this.value);
-    // }
-  }
-
   send(value: string) {
-    this.userService.loadData(Number(value)).subscribe({
-      next: (resp) => {
-        this.router.navigate(['/']).then(r => {
-          if (r) {
-            console.log("Redirected to main page")
-          } else {
-            console.error("Unable redirect to main page");
-          }
-        });
+    this.userService.loadData(Number(value)).subscribe(
+      data => {
+        this.message = data;
+        alert(this.message.message);
+        this.value = '';
       }
-    })
+    );
   }
 }

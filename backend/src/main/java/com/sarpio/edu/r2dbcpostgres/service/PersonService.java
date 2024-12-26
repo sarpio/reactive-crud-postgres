@@ -3,15 +3,20 @@ package com.sarpio.edu.r2dbcpostgres.service;
 import com.sarpio.edu.r2dbcpostgres.exceptions.PersonAlreadyExistsException;
 import com.sarpio.edu.r2dbcpostgres.exceptions.PersonNotFoundException;
 import com.sarpio.edu.r2dbcpostgres.mapper.PersonMapper;
+import com.sarpio.edu.r2dbcpostgres.model.Message;
 import com.sarpio.edu.r2dbcpostgres.model.PersonDTO;
 import com.sarpio.edu.r2dbcpostgres.repo.PersonRepository;
+import io.r2dbc.spi.R2dbcException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.r2dbc.BadSqlGrammarException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
@@ -96,13 +101,23 @@ public class PersonService {
                 .flatMap(person -> personRepository.deleteById(id)).then(Mono.just("\"{ message: Person with ID: " + id + " deleted }\""));
     }
 
-    public void createPersons(List<PersonDTO> dtos) {
-        long start = System.currentTimeMillis();
+    public Message createPersons(List<PersonDTO> dtos) {
+        Message message = new Message("");
         Flux.fromIterable(dtos)
                 .map(PersonMapper::toEntity)
                 .flatMap(personRepository::save)
-                .onErrorComplete()
-                .subscribe(/*(person) -> System.out.println(), (error) -> System.out.println("Error occurred: " + error),() -> System.out.println("All people saved")*/);
+                .subscribe(
+                        person -> {
+                            // Put here if you want to process data while created (each record)
+                        },
+//                        error -> System.err.println("Database may not be available for the application: " + error.getCause()),
+                        error -> message.setMessage(error.getMessage()),
+                        () -> System.out.println("All data processed!")
+                );
+        if (message.getMessage().isEmpty()) {
+            message.setMessage("All data processed!");
+        }
+        return message;
     }
 
     public Mono<Long> getDbSize() {
