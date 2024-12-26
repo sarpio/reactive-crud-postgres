@@ -9,7 +9,7 @@
         <mat-label>Records</mat-label>
         <input matInput placeholder="Records quantity" [(ngModel)]="value" (input)="onInputChange($event)">
       </mat-form-field>
-      <button mat-raised-button (click)="send()" color="primary">Send</button>
+      <button mat-raised-button (click)="send(value)" color="primary">Send</button>
     </mat-card-content>
     <!--    <p>{{ message?.message }}</p>-->
   </mat-card>

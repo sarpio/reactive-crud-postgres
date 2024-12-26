@@ -16,12 +16,11 @@ import {
 import { NgxMaskDirective } from 'ngx-mask';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { User } from '../../model/User';
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-user-add-edit',
   imports: [MatFormFieldModule, MatInputModule, MatCardModule, MatButtonModule,
-    MatIconModule, FormsModule, NgxMaskDirective, ReactiveFormsModule, NgIf
+    MatIconModule, FormsModule, NgxMaskDirective, ReactiveFormsModule,
   ],
   templateUrl: './user-add-edit.component.html',
   styleUrl: './user-add-edit.component.scss'
